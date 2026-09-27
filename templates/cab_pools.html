@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Cab Pools</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <div class="brand">MoveInSync</div>
+
+    <div>
+        <a href="/admin/dashboard">Dashboard</a>
+        <a href="/logout">Logout</a>
+    </div>
+
+</div>
+
+<div class="container">
+
+    <div class="page-header">
+
+        <h1>Cab Pools</h1>
+
+        <p>
+            Active cab assignments and pickup planning.
+        </p>
+
+    </div>
+
+    {% if cabs %}
+
+        {% for cab in cabs %}
+
+        <div class="cab-card">
+
+            <div class="cab-header">
+
+                <div>
+                    <h2>{{ cab.cab_number }}</h2>
+
+                    <span class="badge badge-success">
+                        ACTIVE
+                    </span>
+                </div>
+
+                <div class="actions">
+
+                    <a
+                        class="btn"
+                        href="/pooling/route/{{ cab.cab_id }}"
+                    >
+                        Smart Route
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="meta">
+
+                <div class="meta-item">
+                    <span class="meta-label">Office</span>
+                    <span class="meta-value">
+                        {{ cab.office_name }}
+                    </span>
+                </div>
+
+                <div class="meta-item">
+                    <span class="meta-label">Shift</span>
+                    <span class="meta-value">
+                        {{ cab.shift_name }}
+                    </span>
+                </div>
+
+                <div class="meta-item">
+                    <span class="meta-label">Date</span>
+                    <span class="meta-value">
+                        {{ cab.booking_date }}
+                    </span>
+                </div>
+
+                <div class="meta-item">
+                    <span class="meta-label">Capacity</span>
+                    <span class="meta-value">
+                        {{ cab.capacity }} seats
+                    </span>
+                </div>
+
+            </div>
+
+            <h3>Employees</h3>
+
+            {% if cab.members %}
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Employee</th>
+                            <th>Pickup Location</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                    {% for member in cab.members %}
+
+                        <tr>
+
+                            <td>
+                                <strong>
+                                    {{ member.name }}
+                                </strong>
+                            </td>
+
+                            <td>
+                                {{ member.home_latitude }},
+                                {{ member.home_longitude }}
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            {% else %}
+
+                <div class="empty">
+                    No employees assigned.
+                </div>
+
+            {% endif %}
+
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="card empty">
+
+            <h2>No cab pools yet</h2>
+
+            <p>
+                Generate a pool to start assigning employees.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+    <div class="actions">
+
+        <a class="btn" href="/pooling/generate">
+            + Generate New Pools
+        </a>
+
+        <a class="btn btn-secondary" href="/admin/dashboard">
+            Dashboard
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
