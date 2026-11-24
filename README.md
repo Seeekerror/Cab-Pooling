@@ -440,8 +440,3 @@ python -m unittest discover -s tests -v
 - [ ] **Driver Assignment Portal**: Mobile-responsive view for assigned drivers with turn-by-turn stop order.
 - [ ] **Redis / Celery Background Tasks**: Offload large-scale daily pool generation to asynchronous worker queues.
 
----
-
-## 📄 License
-
-This project is licensed under the [MIT License](LICENSE).
